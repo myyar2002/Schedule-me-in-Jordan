@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الرحلات الأردني المطور | Jordan Travel Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        jordanGreen: '#006B3C',
+                        jordanRed: '#CE1126',
+                        jordanBlack: '#000000'
+                    }
+                }
+            }
+        }
+        
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-center flex-1">
+                    <h1 id="mainTitle" class="text-3xl md:text-4xl font-bold mb-2">🇯🇴 دليل الرحلات الأردني</h1>
+                    <p id="mainSubtitle" class="text-lg opacity-90">اكتشف أحلى الأماكن في كل محافظات الأردن!</p>
+                </div>
+                <button onclick="toggleLanguage()" class="language-toggle bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full text-sm transition-all duration-300">
+                    🌐 <span id="langText">English</span>
+                </button>
+            </div>
+            <div class="flex justify-center gap-4 text-sm">
+                <span class="bg-white/20 px-3 py-1 rounded-full" id="stat1">+1000 مكان</span>
+                <span class="bg-white/20 px-3 py-1 rounded-full" id="stat2">12 محافظة</span>
+                <span class="bg-white/20 px-3 py-1 rounded-full" id="stat3">6 فعاليات</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Planning Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 mb-8 card-hover">
+            <h2 id="planTitle" class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+                🗺️ خطط رحلتك المثالية
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <!-- Governorate Selection -->
+                <div>
+                    <label id="whereLabel" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
+                        📍 وين بدك تروح؟
+                    </label>
+                    <select id="governorate" class="w-full p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-700 dark:text-white focus:border-primary focus:outline-none">
+                        <option value="">اختار المحافظة</option>
+                        <option value="عمان">عمان - العاصمة</option>
+                        <option value="إربد">إربد - لؤلؤة الشمال</option>
+                        <option value="الزرقاء">الزرقاء - الزرقاء الحلوة</option>
+                        <option value="البلقاء">البلقاء - أرض الملح</option>
+                        <option value="عجلون">عجلون - غابات الشمال</option>
+                        <option value="جرش">جرش - مدينة الآثار</option>
+                        <option value="المفرق">المفرق - بوابة الصحراء</option>
+                        <option value="الكرك">الكرك - قلعة الصحراء</option>
+                        <option value="الطفيلة">الطفيلة - جبال الجنوب</option>
+                        <option value="معان">معان - طريق القوافل</option>
+                        <option value="العقبة">العقبة - عروس البحر الأحمر</option>
+                        <option value="مادبا">مادبا - مدينة الفسيفساء</option>
+                    </select>
+                </div>
+
+                <!-- Budget Filter -->
+                <div>
+                    <label id="budgetLabel" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
+                        💰 الميزانية
+                    </label>
+                    <div class="flex gap-2">
+                        <button onclick="selectPrice('$')" class="price-filter px-3 py-2 rounded-lg border text-sm flex-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300" data-price="$">اقتصادي</button>
+                        <button onclick="selectPrice('$$')" class="price-filter px-3 py-2 rounded-lg border text-sm flex-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300" data-price="$$">متوسط</button>
+                        <button onclick="selectPrice('$$$')" class="price-filter px-3 py-2 rounded-lg border text-sm flex-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300" data-price="$$$">مرتفع</button>
+                        <button onclick="selectPrice('all')" class="price-filter px-3 py-2 rounded-lg border text-sm flex-1 active" data-price="all">الكل</button>
+                    </div>
+                </div>
+
+                <!-- Sort Options -->
+                <div>
+                    <label id="sortLabel" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
+                        🔄 ترتيب حسب
+                    </label>
+                    <select id="sortBy" class="w-full p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-700 dark:text-white focus:border-primary focus:outline-none">
+                        <option value="rating">التقييم الأعلى</option>
+                        <option value="price-low">السعر الأقل</option>
+                        <option value="price-high">السعر الأعلى</option>
+                        <option value="name">الاسم</option>
+                        <option value="random">عشوائي</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Activity Types -->
+            <div class="mb-6">
+                <label id="activitiesLabel" class="block text-gray-700 dark:text-gray-300 font-semibold mb-4">
+                    🎯 ايش الفعاليات اللي بدكم إياها؟
+                </label>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div onclick="toggleActivity('مطاعم')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="مطاعم">
+                        <div class="text-3xl mb-2">🍽️</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">مطاعم</div>
+                        <div class="text-xs text-gray-500 mt-1">+200 مطعم</div>
+                    </div>
+                    <div onclick="toggleActivity('كافيهات')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="كافيهات">
+                        <div class="text-3xl mb-2">☕</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">كافيهات</div>
+                        <div class="text-xs text-gray-500 mt-1">+150 كافيه</div>
+                    </div>
+                    <div onclick="toggleActivity('ألعاب')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="ألعاب">
+                        <div class="text-3xl mb-2">🎮</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">ألعاب</div>
+                        <div class="text-xs text-gray-500 mt-1">+100 مركز</div>
+                    </div>
+                    <div onclick="toggleActivity('مغامرات')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="مغامرات">
+                        <div class="text-3xl mb-2">🏔️</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">مغامرات</div>
+                        <div class="text-xs text-gray-500 mt-1">+80 مكان</div>
+                    </div>
+                    <div onclick="toggleActivity('تسوق')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="تسوق">
+                        <div class="text-3xl mb-2">🛍️</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">تسوق</div>
+                        <div class="text-xs text-gray-500 mt-1">+120 مول</div>
+                    </div>
+                    <div onclick="toggleActivity('ثقافية')" class="activity-card p-4 rounded-lg border text-center bg-white dark:bg-gray-700" data-activity="ثقافية">
+                        <div class="text-3xl mb-2">🏛️</div>
+                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">ثقافية</div>
+                        <div class="text-xs text-gray-500 mt-1">+90 موقع</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="text-center">
+                <button onclick="generatePlan()" id="generatePlan" class="bg-primary hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    🚀 يلا نستكشف الأردن!
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div id="quickStats" class="hidden grid md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-xl text-center">
+                <div class="text-2xl font-bold" id="totalPlaces">0</div>
+                <div class="text-sm opacity-90" id="totalPlacesLabel">إجمالي الأماكن</div>
+            </div>
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-xl text-center">
+                <div class="text-2xl font-bold" id="avgRating">0</div>
+                <div class="text-sm opacity-90" id="avgRatingLabel">متوسط التقييم</div>
+            </div>
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-xl text-center">
+                <div class="text-2xl font-bold" id="estimatedCost">0</div>
+                <div class="text-sm opacity-90" id="estimatedCostLabel">التكلفة المتوقعة</div>
+            </div>
+            <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-xl text-center">
+                <div class="text-2xl font-bold" id="favoritesCount">0</div>
+                <div class="text-sm opacity-90" id="favoritesLabel">المفضلة</div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="hidden">
+            <!-- Filter Bar -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
+                <div class="flex gap-3">
+                    <button onclick="showAll()" id="showAllBtn" class="px-4 py-2 bg-primary text-white rounded-lg text-sm">عرض الكل</button>
+                    <button onclick="showFavorites()" id="showFavoritesBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm">المفضلة فقط</button>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="shareResults()" id="shareBtn" class="px-4 py-2 bg-green-500 text-white rounded-lg text-sm">📤 مشاركة</button>
+                    <button onclick="resetForm()" id="resetBtn" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">🔄 إعادة تعيين</button>
+                </div>
+            </div>
+
+            <!-- Places Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="placesGrid"></div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="bg-gradient-to-r from-jordanGreen to-jordanRed text-white rounded-2xl p-6 mt-8">
+            <h3 id="tipsTitle" class="text-xl font-bold mb-4">💡 نصائح للرحلة المثالية</h3>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div id="tip1">• تأكد من حالة الطقس قبل الخروج</div>
+                <div id="tip2">• احجز مسبقاً في المطاعم المشهورة</div>
+                <div id="tip3">• خذ معك كمية كافية من الماء</div>
+                <div id="tip4">• لا تنسى شاحن الهاتف</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button onclick="scrollToTop()" id="scrollTopBtn" class="floating-btn bg-primary text-white p-3 rounded-full shadow-lg hidden hover:bg-purple-700 transition-all">
+        ⬆️
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

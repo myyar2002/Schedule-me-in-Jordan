@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #5D5CDE 0%, #006B3C 50%, #CE1126 100%);
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.activity-card.selected {
+    border-color: #5D5CDE;
+    background: rgba(93, 92, 222, 0.1);
+    transform: scale(1.05);
+}
+
+.place-card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border: 1px solid rgba(93, 92, 222, 0.1);
+}
+
+.dark .place-card {
+    background: linear-gradient(145deg, #1f2937, #111827);
+    border: 1px solid rgba(93, 92, 222, 0.2);
+}
+
+.price-filter {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.price-filter.active {
+    background: #5D5CDE !important;
+    color: white !important;
+}
+
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.star-rating {
+    color: #fbbf24;
+}
+
+.favorite-btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.favorite-btn.favorited {
+    color: #ef4444;
+    transform: scale(1.2);
+}
+
+.language-toggle {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.language-toggle:hover {
+    transform: scale(1.05);
+}
+
+button {
+    cursor: pointer;
+}
+
+select {
+    cursor: pointer;
+}
